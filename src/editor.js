@@ -21,7 +21,7 @@ class Editor {
    */
   insert(char) {
     if (this.cursor) {
-      this.text.insert(char, (node) => node.value === this.cursor.value);
+      this.text.insert(char, (node) => this.cursor === node);
     } else {
       this.text.insertAtHead(char);
     }
@@ -50,9 +50,7 @@ class Editor {
    */
   arrowLeft() {
     if (this.cursor && this.text.head) {
-      this.cursor = this.text.findWithPrevious((node) => {
-        return this.cursor.value === node.value;
-      })[1];
+      this.cursor = this.text.findWithPrevious((node) => this.cursor === node)[1];
     }
     return this;
   }
@@ -68,8 +66,8 @@ class Editor {
     } else if (!this.cursor) {
       this.cursor = this.text.head;
     }
-
     return this;
-  }}
+  }
+}
 
 module.exports = Editor;
